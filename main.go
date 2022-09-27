@@ -11,7 +11,7 @@ func main() {
 		Username: "root",
 		Password: "test",
 		Path:     "127.0.0.1",
-		Port:     "9123",
+		Port:     "9125",
 		Config:   "charset=utf8mb4&parseTime=True&loc=Local",
 	}
 	global.DB = initialize.GromMysqlByConfig(dbConfig)
