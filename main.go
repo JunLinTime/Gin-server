@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"server/config"
 	"server/global"
 	"server/initialize"
@@ -11,15 +12,16 @@ func main() {
 		Username: "root",
 		Password: "test",
 		Path:     "127.0.0.1",
-		Port:     "9125",
+		Port:     "3306",
+		Dbname:   "gin",
 		Config:   "charset=utf8mb4&parseTime=True&loc=Local",
 	}
 	global.DB = initialize.GromMysqlByConfig(dbConfig)
-	router := initialize.Routers()
-	router.Run(":9124")
 	if global.DB != nil {
 		initialize.RegisterTables(global.DB)
-		db, _ := global.DB.DB()
-		defer db.Close()
+	} else {
+		log.Println("global DB is nil")
 	}
+	router := initialize.Routers()
+	router.Run(":9124")
 }

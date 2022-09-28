@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"log"
 	"server/config"
 
 	"gorm.io/driver/mysql"
@@ -12,11 +13,10 @@ func GromMysqlByConfig(m config.DB) *gorm.DB {
 		return nil
 	}
 	mysqlConfig := mysql.Config{
-		DSN:                       m.Dsn(),
-		DefaultStringSize:         191,
-		SkipInitializeWithVersion: false,
+		DSN: m.Dsn(),
 	}
 	if db, err := gorm.Open(mysql.New(mysqlConfig), &gorm.Config{}); err != nil {
+		log.Println(err)
 		panic(err)
 	} else {
 		db.DB()
